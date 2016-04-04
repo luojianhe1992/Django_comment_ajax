@@ -2,23 +2,37 @@
  * Created by jianheluo on 4/3/16.
  */
 
-$('#comment_form').on('submit', function(event){
+$('.comment_form').on('submit', function(event){
+
     event.preventDefault();
+
+    console.log($('.comment_form'));
+
+    console.log(event.target);
+
+    console.log($(event.target).children().eq(0).val());
+
+    console.log($(event.target).children().eq(1).val());
+
+    console.log($(event.target).children().eq(2).val());
+
+    console.log($(event.target).prev());
 
     console.log("Call the ajax function.");
 
+    // in the ajax function, the data will be passed to request.
     $.ajax({
         url : '/add_comment_ajax/',
         type : 'POST',
         data : {
-            message_id: $('#message_id').val(),
-            comment_text: $('#comment_text').val(),
+            message_id: $(event.target).children().eq(0).val(),
+            comment_text: $(event.target).children().eq(1).val(),
                 },
 
         success : function(json){
             console.log("Success receive json data.");
-            $('#comment_text').val('');
-            $('#comment_list').append('<li style="color: deepskyblue">' + json.user + ': ' + json.comment_text + '</li>');
+            $(event.target).children().eq(1).val('');
+            $(event.target).prev().append('<li style="color: deepskyblue">' + json.user + ': ' + json.comment_text + '</li>');
         }
     });
 });

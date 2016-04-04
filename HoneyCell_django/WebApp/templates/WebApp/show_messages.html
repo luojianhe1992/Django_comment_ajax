@@ -42,15 +42,15 @@
 
         {% for message in messages %}
             <p style="color: red">{{ message.user }} said that {{ message.message_text }} at {{ message.time_created }}</p>
-            <ul id="comment_list">
+            <ul class="comment_list">
                 {% for comment in message.comment_set.all %}
                     <li style="color: deepskyblue">{{ comment.user }} comments that {{ comment.comment_text }} at {{ comment.time_created }}</li>
                 {% endfor %}
             </ul>
-            <form id="comment_form" method="post">
-                <input id="message_id" type="hidden" name="" value="{{ message.id }}">
-                <input type="text" id="comment_text" name=""/>
-                <input class="btn btn-default" id="send" type="submit" value="Send"/>
+            <form class="comment_form" method="post">
+                <input class="message_id" type="hidden" name="" value="{{ message.id }}">
+                <input class="comment_text" type="text" name=""/>
+                <input class="btn btn-default" type="submit" value="Send"/>
             </form>
 
             <br>

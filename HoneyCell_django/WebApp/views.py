@@ -196,16 +196,17 @@ def add_comment_ajax(request):
     print(request)
 
     if request.method == "POST":
-        user = request.user
-        message_id = request.POST['message_id']
-        message = Message.objects.get(id=message_id)
-        comment_text = request.POST['comment_text']
 
-        print("%" * 50)
+        print("in the post method.")
+
+        user = request.user
         print(user)
+        message_id = request.POST['message_id']
         print(message_id)
+        message = Message.objects.get(id=message_id)
+        print(message.message_text)
+        comment_text = request.POST['comment_text']
         print(comment_text)
-        print("%" * 50)
 
         new_comment_instance = Comment(user=user,
                                        message=message,
