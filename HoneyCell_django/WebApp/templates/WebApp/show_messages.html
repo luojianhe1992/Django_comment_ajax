@@ -1,0 +1,68 @@
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    {% load staticfiles %}
+    <link rel="stylesheet" href="{% static "WebApp/css/bootstrap.css" %}" type="text/css">
+    <link rel="stylesheet" href="{% static "WebApp/css/result.css" %}" type="text/css">
+    <script src="{% static "WebApp/js/d3.min.js" %}"></script>
+    <script src="{% static "WebApp/js/dimple.v2.1.6.min.js" %}"></script>
+    <script src="{% static "WebApp/js/jquery-1.11.3.js" %}"></script>
+</head>
+
+<body>
+<div id="nav">
+    <div id="logo">
+
+        <a href="{% url 'index' %}"><img src="{% static "WebApp/img/logo.jpeg" %}" alt="logo"></a>
+    </div>
+    <ul id="navi">
+        <li class="navMenu"><a href="{% url 'honeycell' %}">HoneyCell</a></li>
+        <li class="navMenu"><a href="{% url 'honeycomb' %}">HoneyComb</a></li>
+        <li class="navMenu"><a href="{% url 'preprocess' %}">Preprocessing</a></li>
+        <li class="navMenu"><a href="{% url 'analytics' %}">Analytics</a></li>
+        <li class="navMenu"><a href="{% url 'visualization' %}">Visualization</a></li>
+        <li class="navMenu"><a href="{% url 'logout' %}">Logout</a></li>
+    </ul>
+</div>
+<div id="wrap">
+    <div id="contentwell">
+
+        <h1>This is show messages page.</h1>
+
+        <hr>
+
+        <h2><a href="{% url 'add_message' %}">Back to add message</a></h2>
+
+        <hr>
+
+        <h2><a href="{% url 'index' %}">Back to index page</a></h2>
+
+        <hr>
+
+        {% for message in messages %}
+            <p style="color: red">{{ message.user }} said that {{ message.message_text }} at {{ message.time_created }}</p>
+            <ul id="comment_list">
+                {% for comment in message.comment_set.all %}
+                    <li style="color: deepskyblue">{{ comment.user }} comments that {{ comment.comment_text }} at {{ comment.time_created }}</li>
+                {% endfor %}
+            </ul>
+            <form id="comment_form" method="post">
+                <input id="message_id" type="hidden" name="" value="{{ message.id }}">
+                <input type="text" id="comment_text" name=""/>
+                <input class="btn btn-default" id="send" type="submit" value="Send"/>
+            </form>
+
+            <br>
+            <hr>
+
+        {% endfor %}
+    </div>
+</div>
+
+<!-- Using AJAX -->
+<script src="{% static 'WebApp/js/main.js' %}"></script>
+
+
+</body>
+</html>
